@@ -2675,7 +2675,10 @@ Returns the symbol."
            (rx ": " eos)
            (format " (default: %s): " default-val)
            prompt)))
-  (intern (completing-read prompt obarray
+  (intern (completing-read prompt
+                           (if (fboundp 'help--symbol-completion-table)
+                               'help--symbol-completion-table
+                             obarray)
                            predicate t nil nil
                            default-val)))
 
